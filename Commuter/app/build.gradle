@@ -1,13 +1,13 @@
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 'android-L'
+    compileSdkVersion 19
     buildToolsVersion "19.1.0"
 
     defaultConfig {
         applicationId "austindroids.com.commuter"
         minSdkVersion 9
-        targetSdkVersion 'L'
+        targetSdkVersion '19'
         versionCode 1
         versionName "1.0"
     }
