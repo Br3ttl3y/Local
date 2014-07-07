@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:choiceMode="singleChoice"
     android:background="@color/blue_main"
+    android:dividerHeight="1dp"
+    android:divider="@color/gray_dark_main"
     tools:context="austindroids.com.commuter.NavigationDrawer">
 
 </ListView>

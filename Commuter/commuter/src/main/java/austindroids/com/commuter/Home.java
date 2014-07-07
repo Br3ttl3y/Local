@@ -1,14 +1,22 @@
 package austindroids.com.commuter;
 
-import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+/**
+ * This class represents the main activity of the application. This class contains the entire view
+ * of the screen minus the action bar and status bar. This class handles creation of the nav drawer
+ * and any new fragments needed for the app. To accomplish this, use the nav item list or create
+ * callbacks to this class from the fragments by attaching the other classes interface in the
+ * onAttach(Activity activity) event and over riding the methods in this class where it should
+ * create the fragment and pass in any args that are needed.
+ */
 public class Home extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks{
 
     private NavigationDrawer navigationDrawer;
@@ -21,6 +29,9 @@ public class Home extends ActionBarActivity implements NavigationDrawer.Navigati
         navigationDrawer = (NavigationDrawer) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         // setup the nav drawer
         navigationDrawer.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // By default, navigate to the record fragment.
+        navigateToPage(R.id.nav_record);
 
     }
 
@@ -46,6 +57,32 @@ public class Home extends ActionBarActivity implements NavigationDrawer.Navigati
 
     @Override
     public void onNavDrawerItemSelected(NavigationDrawer.NavItem item) {
+        navigateToPage(item.id);
+    }
+
+    private void navigateToPage(int id) {
+        Fragment fragment = null;
+        switch (id) {
+            case R.id.nav_record:
+                fragment = new RecordFragment();
+        }
+        // we do not want to add to backstack here because if we do and the user clicks on the same
+        // nav drawer item over and over again, they will all be added to backstack holding the back
+        // button hostage
+        // TODO we can code it up so if there is not an instance if a particular fragment, we can add it to backstack, but this breaks android design guidelines.
+        navigateToFragment(fragment, false);
+    }
+
+    private void navigateToFragment(Fragment fragment, boolean addToBackStack) {
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            if (addToBackStack) {
+                ft.addToBackStack(null);
+            }
+            ft.replace(R.id.container, fragment).commit();
+        }
 
     }
+
 }
