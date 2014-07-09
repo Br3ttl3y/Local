@@ -1,4 +1,4 @@
-package austindroids.com.commuter;
+package com.austindroids.commuter;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

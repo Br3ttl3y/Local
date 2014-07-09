@@ -1,4 +1,4 @@
-package austindroids.com.commuter;
+package com.austindroids.commuter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

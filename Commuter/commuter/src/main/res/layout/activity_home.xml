@@ -18,7 +18,7 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="austindroids.com.commuter.NavigationDrawer"
+        android:name="com.austindroids.commuter.NavigationDrawer"
         tools:layout="@layout/fragment_nav_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

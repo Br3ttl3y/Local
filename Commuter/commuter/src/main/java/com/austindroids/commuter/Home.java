@@ -1,4 +1,4 @@
-package austindroids.com.commuter;
+package com.austindroids.commuter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,7 +22,7 @@ public class Home extends ActionBarActivity implements NavigationDrawer.Navigati
     private NavigationDrawer navigationDrawer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
