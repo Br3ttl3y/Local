@@ -7,6 +7,10 @@
     <color name="gray_main">#CBC4BC</color>
     <color name="gray_dark_main">#686663</color>
     <color name="blue_selected">#7ebcbe</color>
+    <color name="green_go">#007b4b</color>
+    <color name="green_pressed">#005c38</color>
+    <color name="red_stop">#cc3333</color>
+    <color name="red_pressed">#992626</color>
 
 
 </resources>

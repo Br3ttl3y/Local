@@ -98,9 +98,9 @@ public class NtpTime {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                boolean good = instance.ntpNetworkRefresh();
+                boolean success = instance.ntpNetworkRefresh();
                 long diff = System.currentTimeMillis() - instance.currentTimeMillis();
-                Log.d(TAG, "NTP network call success= " + good + " difference = " + diff);
+                Log.d(TAG, "NTP network call success= " + success + " difference = " + diff);
             } catch (Exception e) {
                 Log.d(TAG, "Error getting NTP com.austindroids.commuter.time");
             }

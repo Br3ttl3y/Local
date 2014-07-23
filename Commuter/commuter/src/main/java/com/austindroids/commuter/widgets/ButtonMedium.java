@@ -3,22 +3,25 @@ package com.austindroids.commuter.widgets;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.Button;
 
-public class TextViewMedium extends TextView{
+/**
+ * Created by markrebhan on 7/15/14.
+ */
+public class ButtonMedium extends Button {
 
-    public TextViewMedium(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+    public ButtonMedium(Context context) {
+        super(context);
         setFont();
     }
 
-    public TextViewMedium(Context context, AttributeSet attrs) {
+    public ButtonMedium(Context context, AttributeSet attrs) {
         super(context, attrs);
         setFont();
     }
 
-    public TextViewMedium(Context context) {
-        super(context);
+    public ButtonMedium(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         setFont();
     }
 
