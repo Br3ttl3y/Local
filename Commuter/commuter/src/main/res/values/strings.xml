@@ -8,7 +8,8 @@
     <string name="record">Record</string>
     <string name="finish_caps">FINISH ROUTE</string>
     <string name="start_caps">START ROUTE</string>
-    <string name="pause_caps">RED LIGHT</string>
+    <string name="pause_caps">GREEN LIGHT</string>
+    <string name="resume_caps">RED LIGHT</string>
     <string name="total_time_caps">TOTAL TIME</string>
     <string name="time_stopped_caps">TIME STOPPED</string>
     <string name="time_zero">00:00</string>

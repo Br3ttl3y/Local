@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.austindroids.commuter.viewrecord.RecordFragment;
+
 /**
  * This class represents the main activity of the application. This class contains the entire view
  * of the screen minus the action bar and status bar. This class handles creation of the nav drawer
@@ -17,7 +19,7 @@ import android.view.MenuItem;
  * onAttach(Activity activity) event and over riding the methods in this class where it should
  * create the fragment and pass in any args that are needed.
  */
-public class Home extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks{
+public class HomeActivity extends ActionBarActivity implements NavigationDrawer.NavigationDrawerCallbacks{
 
     private NavigationDrawer navigationDrawer;
 
@@ -46,7 +48,7 @@ protected void onCreate(Bundle savedInstanceState) {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
+        // automatically handle clicks on the HomeActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
@@ -64,7 +66,7 @@ protected void onCreate(Bundle savedInstanceState) {
         Fragment fragment = null;
         switch (id) {
             case R.id.nav_record:
-                fragment = new RecordFragment();
+                fragment = RecordFragment.getInstance();
         }
         // we do not want to add to backstack here because if we do and the user clicks on the same
         // nav drawer item over and over again, they will all be added to backstack holding the back

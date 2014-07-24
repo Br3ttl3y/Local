@@ -5,47 +5,60 @@ package com.austindroids.commuter.model;
  */
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.austindroids.commuter.time.NtpTime;
 
 public class StopWatch {
-    private long start, duration;
+
+    private long start;
+    private long duration;
     private NtpTime ntpTime;
 
     public StopWatch(Context context) {
-        start = duration = 0;
         ntpTime = NtpTime.getInstance(context);
     }
 
-    private void setStart(long time) {
-        start = time;
+    public long getStart() {
+        return start;
     }
 
-    private void setDuration(long time)
-    {
-        duration = time;
-    }
-
-    public long GetDuration()
-    {
-        if(start == 0 ) return 0;
+    public long getDuration() {
         return duration;
     }
 
-    public long CurrentDuration() { return ntpTime.currentTimeMillis() - start;}
-
-    public void Start(){
-        if(isRunning()) return;
-        setStart(ntpTime.currentTimeMillis());
+    public long currentDuration() {
+        return ntpTime.currentTimeMillis() - start;
     }
 
-    public long Stop(){
-        if(notRunning()) return 0;
-        setDuration(CurrentDuration());
-        setStart(0);
-        return GetDuration();
+    public void start() {
+        if (isRunning()) {
+            return;
+        }
+        start = ntpTime.currentTimeMillis();
     }
 
-    private boolean notRunning(){ return start == 0; }
-    private boolean isRunning(){ return !notRunning(); }
+    //TODO figure out how to pause
+    public long pause() {
+
+        return 0;
+    }
+
+    public long stop() {
+        if (notRunning()) {
+            return 0;
+        }
+        duration = currentDuration();
+        start = 0;
+        return duration;
+    }
+
+    private boolean notRunning() {
+        return start == 0;
+    }
+
+    private boolean isRunning() {
+        return start > 0;
+    }
 }

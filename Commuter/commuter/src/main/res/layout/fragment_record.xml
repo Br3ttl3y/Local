@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,17 +9,9 @@
     <FrameLayout
         android:id="@+id/frame_top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/button_large">
 
-        <com.austindroids.commuter.widgets.ButtonMedium
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_large"
-            android:background="@drawable/button_red"
-            android:textColor="@color/black_background"
-            android:textSize="@dimen/text_large_button"
-            android:text="@string/finish_caps"/>
-
-        </FrameLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:layout_below="@+id/frame_top"
@@ -31,85 +22,15 @@
         android:paddingTop="@dimen/padding_default"
         android:paddingBottom="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <com.austindroids.commuter.widgets.TextViewMedium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/orange_main"
-                    android:textSize="@dimen/text_header"
-                    android:layout_gravity="center"
-                    android:text="@string/total_time_caps"/>
-
-                <com.austindroids.commuter.widgets.TextViewMedium
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/time_zero"
-                    android:textColor="@color/orange_main"
-                    android:textSize="@dimen/text_xxlarge"
-                    android:layout_gravity="center"
-                    tools:text="100:00"/>
-
-                </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.austindroids.commuter.widgets.TextViewMedium
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/orange_main"
-                android:textSize="@dimen/text_header"
-                android:layout_gravity="center"
-                android:text="@string/time_stopped_caps"/>
-
-            <com.austindroids.commuter.widgets.TextViewMedium
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/orange_main"
-                android:textSize="@dimen/text_xxlarge"
-                android:layout_gravity="center"
-                android:text="@string/time_zero"/>
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-
-        </FrameLayout>
-
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/frame_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_large"
         android:layout_alignParentBottom="true">
 
-        <com.austindroids.commuter.widgets.ButtonMedium
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_large"
-            android:textSize="@dimen/text_large_button"
-            android:background="@drawable/button_green"
-            android:textColor="@color/black_background"
-            android:text="@string/start_caps"/>
-
-        </FrameLayout>
+    </FrameLayout>
 
 
 </RelativeLayout>

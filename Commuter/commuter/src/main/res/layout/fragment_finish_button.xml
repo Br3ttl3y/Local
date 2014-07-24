@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.austindroids.commuter.widgets.ButtonMedium
+        android:id="@+id/button_finish"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_large"
+        android:background="@drawable/button_red"
+        android:textColor="@color/black_background"
+        android:textSize="@dimen/text_large_button"
+        android:text="@string/finish_caps"/>
+
+</LinearLayout>
