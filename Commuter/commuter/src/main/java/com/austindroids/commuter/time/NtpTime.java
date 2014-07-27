@@ -35,11 +35,21 @@ public class NtpTime {
         initFallback();
     }
 
-    public static synchronized NtpTime getInstance(Context context) {
+    public static synchronized NtpTime createInstance(Context context) {
         if (instance == null) {
             instance = new NtpTime(context);
+        } else {
+            Log.e(TAG, "already created an instance, returning already created one.");
         }
 
+        return instance;
+    }
+
+    public static synchronized NtpTime getInstance() {
+        if (instance == null) {
+            Log.e(TAG, "no instance has been created! create one before calling this!");
+            return null;
+        }
         return instance;
     }
 

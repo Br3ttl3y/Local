@@ -5,8 +5,6 @@ package com.austindroids.commuter.model;
  */
 
 import android.content.Context;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.austindroids.commuter.time.NtpTime;
 
@@ -14,10 +12,12 @@ public class StopWatch {
 
     private long start;
     private long duration;
+    private long pause;
+    private long pauseDuration;
     private NtpTime ntpTime;
 
-    public StopWatch(Context context) {
-        ntpTime = NtpTime.getInstance(context);
+    public StopWatch() {
+        ntpTime = NtpTime.getInstance();
     }
 
     public long getStart() {
@@ -25,11 +25,11 @@ public class StopWatch {
     }
 
     public long getDuration() {
-        return duration;
+        return currentDuration();
     }
 
     public long currentDuration() {
-        return ntpTime.currentTimeMillis() - start;
+        return ntpTime.currentTimeMillis() - start - pauseDuration;
     }
 
     public void start() {
@@ -39,10 +39,20 @@ public class StopWatch {
         start = ntpTime.currentTimeMillis();
     }
 
-    //TODO figure out how to pause
-    public long pause() {
+    public void resume() {
+        if (notPaused() || notRunning()) {
+            return;
+        }
 
-        return 0;
+        pauseDuration = ntpTime.currentTimeMillis() - pause;
+        pause = 0;
+    }
+
+    public void pause() {
+        if (isPaused() || notRunning()) {
+            return;
+        }
+        pause = ntpTime.currentTimeMillis();
     }
 
     public long stop() {
@@ -60,5 +70,13 @@ public class StopWatch {
 
     private boolean isRunning() {
         return start > 0;
+    }
+
+    private boolean notPaused() {
+        return pause == 0;
+    }
+
+    private boolean isPaused() {
+        return pause > 0;
     }
 }
