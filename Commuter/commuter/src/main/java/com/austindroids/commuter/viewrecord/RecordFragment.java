@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.austindroids.commuter.BaseFragment;
 import com.austindroids.commuter.R;
+import com.austindroids.commuter.StopWatchManager;
 import com.austindroids.commuter.model.StopWatch;
 import com.squareup.otto.Subscribe;
 
@@ -26,12 +27,13 @@ public class RecordFragment extends BaseFragment {
     }
 
     public static final String TAG = "RecordFragment";
+    public static final String STOPWATCH_MAIN = "main";
 
     FinishButtonFragment finishButtonFragment;
     StopWatchFragment stopWatchFragment;
     StartPauseFragment startPauseFragment;
 
-    private StopWatch stopWatch;
+    StopWatchManager stopWatchManager;
 
     @Override
     public int getLayoutId() {
@@ -52,8 +54,7 @@ public class RecordFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO move this to a service
-        stopWatch = new StopWatch(getActivity());
+        stopWatchManager = StopWatchManager.getInstance();
     }
 
     @Override
@@ -87,18 +88,20 @@ public class RecordFragment extends BaseFragment {
 
         switch (event.getState()) {
             case START_ROUTE:
-                stopWatch.start();
+                stopWatchManager.createStopWatch(STOPWATCH_MAIN);
+                stopWatchManager.startStopwatch(STOPWATCH_MAIN);
                 Log.d(TAG, "start stopwatch");
                 break;
             case RUNNING:
-                stopWatch.start();
-                Log.d(TAG, "start stopwatch");
+                stopWatchManager.resumeStopWatch(STOPWATCH_MAIN);
+                Log.d(TAG, "resume stopwatch");
                 break;
             case PAUSED:
-                stopWatch.stop();
-                Log.d(TAG, "stop stopwatch");
+                stopWatchManager.pauseStopWatch(STOPWATCH_MAIN);
+                Log.d(TAG, "pause stopwatch");
                 break;
             case FINISHED:
+                stopWatchManager.startStopwatch(STOPWATCH_MAIN);
                 Log.d(TAG, "stop stopwatch");
                 break;
         }

@@ -15,6 +15,6 @@ public class BaseApplication extends Application {
         Log.d(TAG, "Base Application Created!");
 
         // initialize Ntp Time on application start
-        NtpTime.getInstance(this).init();
+        NtpTime.createInstance(this).init();
     }
 }
