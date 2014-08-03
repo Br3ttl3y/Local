@@ -1,23 +1,29 @@
-package com.austindroids.commuter;
+package com.austindroids.commuter.stopwatchmodel;
 
 import android.util.Pair;
 
-import com.austindroids.commuter.model.StopWatch;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Class to manage multiple stopwatch implementations
+ *
+ * SINGLETON
  */
 public class StopWatchManager {
 
+    public static final String TAG = "StopWatchManager";
+
     private static StopWatchManager instance;
 
+
+
     // store stopwatches in here with string identifier
-    private HashMap<String, StopWatch> map = new HashMap<String, StopWatch>();
+    private Hashtable<String, StopWatch> map = new Hashtable<String, StopWatch>();
+
+
 
     private StopWatchManager() {
     }
@@ -35,7 +41,7 @@ public class StopWatchManager {
         if (tag == null) {
             throw new NullPointerException("tag cannot be null");
         } else if (map.containsKey(tag)) {
-            throw new IllegalStateException("tag " + tag + "already exists in map!");
+            throw new IllegalStateException("Map already contains tag " + tag);
         }
 
         StopWatch stopWatch = new StopWatch();
@@ -47,10 +53,24 @@ public class StopWatchManager {
     }
 
     public StopWatch getStopWatch(String tag) {
+        if (tag == null) {
+            throw new NullPointerException("tag cannot be null");
+        } else  if (!map.containsKey(tag)) {
+            throw new IllegalStateException("tag does not exist in map");
+        }
+
         return map.get(tag);
     }
 
     public void startStopwatch(String tag) {
+        StopWatch stopWatch = map.get(tag);
+
+        if (stopWatch.notRunning()) {
+            stopWatch.start();
+        } else if (stopWatch.isPaused()) {
+            stopWatch.resume();
+        }
+
         map.get(tag).start();
     }
 
@@ -81,6 +101,5 @@ public class StopWatchManager {
 
         return finalValues;
     }
-
 
 }

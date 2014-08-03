@@ -1,10 +1,4 @@
-package com.austindroids.commuter.model;
-
-/**
- * Created by Brett on 7/13/2014.
- */
-
-import android.content.Context;
+package com.austindroids.commuter.stopwatchmodel;
 
 import com.austindroids.commuter.time.NtpTime;
 
@@ -25,10 +19,6 @@ public class StopWatch {
     }
 
     public long getDuration() {
-        return currentDuration();
-    }
-
-    public long currentDuration() {
         return ntpTime.currentTimeMillis() - start - pauseDuration;
     }
 
@@ -44,7 +34,7 @@ public class StopWatch {
             return;
         }
 
-        pauseDuration = ntpTime.currentTimeMillis() - pause;
+        pauseDuration += ntpTime.currentTimeMillis() - pause;
         pause = 0;
     }
 
@@ -59,24 +49,26 @@ public class StopWatch {
         if (notRunning()) {
             return 0;
         }
-        duration = currentDuration();
+        duration = getDuration();
         start = 0;
         return duration;
     }
 
-    private boolean notRunning() {
+    public boolean notRunning() {
         return start == 0;
     }
 
-    private boolean isRunning() {
+    public boolean isRunning() {
         return start > 0;
     }
 
-    private boolean notPaused() {
+    public boolean notPaused() {
         return pause == 0;
     }
 
-    private boolean isPaused() {
+    public boolean isPaused() {
         return pause > 0;
     }
+
+
 }

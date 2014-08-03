@@ -8,12 +8,13 @@ import android.widget.TextView;
 
 import com.austindroids.commuter.BaseChildFragment;
 import com.austindroids.commuter.R;
-import com.austindroids.commuter.model.StopWatch;
+import com.austindroids.commuter.stopwatchmodel.StopWatchManager;
 
-/**
- * Created by markrebhan on 7/22/14.
- */
 public class StopWatchFragment extends BaseChildFragment {
+
+    public static final String TAG = "StopWatchFragment";
+
+    StopWatchManager stopWatchManager;
 
     TextView totalTime;
     TextView timeStopped;
@@ -33,6 +34,12 @@ public class StopWatchFragment extends BaseChildFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        stopWatchManager = StopWatchManager.getInstance();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
 
@@ -40,5 +47,21 @@ public class StopWatchFragment extends BaseChildFragment {
         timeStopped = (TextView) view.findViewById(R.id.time_stopped);
 
         return view;
+    }
+
+    public void updateMainTimerView(long mainTimer) {
+        totalTime.setText(formatTimer(mainTimer));
+    }
+
+    public void updateTimeStoppedView(long stoppedTimer) {
+        timeStopped.setText(formatTimer(stoppedTimer));
+    }
+
+    private String formatTimer(long timeInMillis) {
+        int seconds = (int) timeInMillis / 1000;
+        int minutes = seconds / 60;
+        seconds = seconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+
     }
 }
