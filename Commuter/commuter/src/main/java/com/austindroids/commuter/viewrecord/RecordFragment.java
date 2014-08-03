@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.austindroids.commuter.BaseFragment;
+import com.austindroids.commuter.stopwatchmodel.OnGetStopWatchTime;
 import com.austindroids.commuter.R;
-import com.austindroids.commuter.StopWatchManager;
-import com.austindroids.commuter.model.StopWatch;
+import com.austindroids.commuter.stopwatchmodel.StopWatchManager;
+import com.austindroids.commuter.stopwatchmodel.StopWatchThreadManager;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -28,12 +29,14 @@ public class RecordFragment extends BaseFragment {
 
     public static final String TAG = "RecordFragment";
     public static final String STOPWATCH_MAIN = "main";
+    public static final String STOPWATCH_STOPPED = "time_stopped";
 
     FinishButtonFragment finishButtonFragment;
     StopWatchFragment stopWatchFragment;
     StartPauseFragment startPauseFragment;
 
     StopWatchManager stopWatchManager;
+    StopWatchThreadManager stopWatchThreadManager;
 
     @Override
     public int getLayoutId() {
@@ -55,6 +58,11 @@ public class RecordFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         stopWatchManager = StopWatchManager.getInstance();
+        // Create stopwatches
+        stopWatchManager.createStopWatch(STOPWATCH_MAIN);
+        stopWatchManager.createStopWatch(STOPWATCH_STOPPED);
+        stopWatchThreadManager = StopWatchThreadManager.getInstance();
+
     }
 
     @Override
@@ -75,12 +83,18 @@ public class RecordFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         eventBus.register(this);
+        // Register listeners to receive updates on the current time
+        stopWatchThreadManager.registerListener(STOPWATCH_MAIN, 100, new OnMainTimeUpdate());
+        stopWatchThreadManager.registerListener(STOPWATCH_STOPPED, 100, new OnTimeStoppedUpdate());
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
         eventBus.unregister(this);
+        stopWatchThreadManager.unRegisterListener(STOPWATCH_MAIN);
+        stopWatchThreadManager.unRegisterListener(STOPWATCH_STOPPED);
     }
 
     @Subscribe
@@ -88,23 +102,38 @@ public class RecordFragment extends BaseFragment {
 
         switch (event.getState()) {
             case START_ROUTE:
-                stopWatchManager.createStopWatch(STOPWATCH_MAIN);
                 stopWatchManager.startStopwatch(STOPWATCH_MAIN);
-                Log.d(TAG, "start stopwatch");
+                Log.d(TAG, "start main stopwatch");
                 break;
             case RUNNING:
-                stopWatchManager.resumeStopWatch(STOPWATCH_MAIN);
-                Log.d(TAG, "resume stopwatch");
+                stopWatchManager.pauseStopWatch(STOPWATCH_STOPPED);
+                Log.d(TAG, "pause time stopped stopwatch");
                 break;
             case PAUSED:
-                stopWatchManager.pauseStopWatch(STOPWATCH_MAIN);
-                Log.d(TAG, "pause stopwatch");
+                stopWatchManager.startStopwatch(STOPWATCH_STOPPED);
+                Log.d(TAG, "start/resume time stopped stopwatch");
                 break;
             case FINISHED:
-                stopWatchManager.startStopwatch(STOPWATCH_MAIN);
+                stopWatchManager.stopAllStopWatches();
                 Log.d(TAG, "stop stopwatch");
                 break;
         }
 
     }
+
+    public class OnMainTimeUpdate implements OnGetStopWatchTime {
+        @Override
+        public void onGetCurrentTime(long currentTime) {
+            stopWatchFragment.updateMainTimerView(currentTime);
+        }
+    }
+
+    public class OnTimeStoppedUpdate implements OnGetStopWatchTime {
+        @Override
+        public void onGetCurrentTime(long currentTime) {
+            stopWatchFragment.updateTimeStoppedView(currentTime);
+        }
+    }
+
+
 }
